@@ -26,3 +26,35 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class TaskListScreen extends StatefulWidget {
+  const TaskListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TaskListScreen> createState() => _TaskListScreenState();
+}
+
+class _TaskListScreenState extends State<TaskListScreen> {
+  // List to hold tasks
+  final List<Task> _tasks = [];
+
+  // Controller for the task name input field
+  final TextEditingController _taskController = TextEditingController();
+
+  /// Adding a new task
+  void _addTask() {
+    final taskName = _taskController.text.trim();
+    if (taskName.isNotEmpty) {
+      setState(() {
+        _tasks.add(Task(name: taskName));
+      });
+      _taskController.clear();
+    }
+  }
+
+  /// Task completion
+  void _toggleTaskCompletion(int index, bool? value) {
+    setState(() {
+      _tasks[index].isCompleted = value ?? false;
+    });
+  }
